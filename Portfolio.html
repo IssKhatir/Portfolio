@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <title>Portfolio - Mes Projets Data</title>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+        *{
+            padding: 0;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            box-sizing: border-box;
+        }
+        html{
+            overflow-x: hidden;
+        }
+        body{
+            width: 100%;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: linear-gradient(to right, rgb(255,255,255), rgb(254,215,173));
+            color: #333;
+        }
+        nav{
+            width: 100%;
+            height: 10vh;
+            position: sticky;
+            top: 0;
+            background: linear-gradient(to right, rgb(255,255,255), rgb(254,215,173));
+            z-index: 1000;
+        }
+        .nav-container{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .logo{
+            color: black;
+            font-size: 2rem;
+            font-weight: bolder;
+        }
+        .logo span{
+            color: rgb(109,67, 0);
+            text-shadow: 0 0 10px rgb(109,67, 0);
+        }
+        .hamburg, .cancel{
+            cursor: pointer;
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            color: black;
+            font-size: 2rem;
+            display: none;
+        }
+        .nav-container .links {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+        }
+        .nav-container .links a{
+            position: relative;
+            font-size: 1.2rem;
+            color: black;
+            text-decoration: none;
+            font-weight: 500;
+            transform: 0.3s linear;
+        }
+        .nav-container .links a::before{
+            position: absolute;
+            content: "";
+            bottom: -3px;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background-color: rgb(109,67, 0);
+            transition: 0.2s linear;
+        }
+        .nav-container .links a:hover::before{
+            width: 100%;
+        }
+        .nav-container .contact-btn{
+            background-color: transparent;
+            padding: 5px 20px;
+            border-radius: 20px;
+            border: 2px solid rgb(109,67, 0);
+            transition: 0.2s linear;
+        }
+        .nav-container .contact-btn a{
+            color: white;
+            transition: 0.3s linear;
+        }
+        .nav-container .contact-btn:hover, .nav-container .contact-btn:hover a{
+            background-color: rgb(109,67, 0);
+            color: white;
+        }
+        .nav-container .links a:hover{
+            color: rgb(109,67, 0);
+        }
+        .dropdown{
+            z-index: 100;
+            position: absolute;
+            top: 0;
+            transform: translateY(-500px);
+            width: 100%;
+            height: auto;
+            backdrop-filter: brightness(40%) blur(3px);
+            box-shadow: 0 0 20px black;
+            transition: 0.2s linear;
+        }
+        .dropdown .links a{
+            color: white;
+            display: flex;
+            text-decoration: none;
+            justify-content: center;
+            padding: 15px 0;
+            align-items: center;
+            transition: 0.2s linear;
+        }
+        .dropdown .links a:hover{
+            background-color: rgb(109,67, 0);
+        }
+
+        /* Portfolio Section */
+        .portfolio-section {
+            padding: 80px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .portfolio-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .portfolio-title {
+            font-size: 2.5rem;
+            color: black;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .portfolio-title span {
+            color: rgb(109,67, 0);
+            text-shadow: 0 0 10px rgb(109,67, 0);
+        }
+        
+        .portfolio-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: rgb(109,67, 0);
+        }
+        
+        .portfolio-subtitle {
+            font-size: 1.2rem;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(109, 67, 0, 0.2);
+        }
+        
+        .project-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .project-card:hover .project-image img {
+            transform: scale(1.1);
+        }
+        
+        .project-content {
+            padding: 25px;
+        }
+        
+        .project-name {
+            font-size: 1.5rem;
+            color: black;
+            margin-bottom: 10px;
+        }
+        
+        .project-name span {
+            color: rgb(109,67, 0);
+        }
+        
+        .project-desc {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .tech-tag {
+            background-color: rgba(109, 67, 0, 0.1);
+            color: rgb(109,67, 0);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(109, 67, 0, 0.3);
+        }
+        
+        .project-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .link-demo {
+            background-color: rgb(109,67, 0);
+            color: white;
+        }
+        
+        .link-code {
+            background-color: transparent;
+            color: rgb(109,67, 0);
+            border: 2px solid rgb(109,67, 0);
+        }
+        
+        .project-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(109, 67, 0, 0.3);
+        }
+        
+        footer {
+            background-color: rgba(109, 67, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 80px;
+        }
+        
+        .footer-social {
+            margin: 20px 0;
+        }
+        
+        .footer-social a {
+            color: white;
+            margin: 0 15px;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-social a:hover {
+            color: #ffd700;
+            transform: translateY(-3px);
+        }
+        
+        @media (max-width: 884px) {
+            nav .logo{
+                position: absolute;
+                top: 16px;
+                left: 15px;
+                font-size: 1.5rem;
+            }
+            .nav-container .links{
+                display: none;
+            }
+            .hamburg,.cancel{
+                display: block;
+            }
+            .cancel{
+                color: white;
+            }
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo" data-aos="zoom-in" data-aos-duration="1000">
+                <span>Data Insights</span>
+            </div>
+            <div class="links">
+                <div class="link" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200"><a href="index.html">About</a></div>
+                <div class="link" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400"><a href="services.html">Services</a></div>
+                <div class="link" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500"><a href="Portfolio.html">Portfolio</a></div>
+                <div class="link contact-btn" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600"><a href="contact.html">Contact Us</a></div>
+            </div>
+            <i class="fa-solid fa-bars hamburg" onclick="hamburg()"></i>
+        </div>
+        <div class="dropdown">
+            <div class="links">
+                <a href="index.html">About</a>
+                <a href="services.html">Services</a>
+                <a href="Portfolio.html">Portfolio</a>
+                <a href="contact.html">Contact Us</a>
+                <i class="fa-solid fa-xmark cancel" onclick="cancel()"></i>
+            </div>
+        </div>
+    </nav>
+
+    <section class="portfolio-section">
+        <div class="portfolio-header" data-aos="fade-down">
+            <h1 class="portfolio-title">Mes <span>Projets</span></h1>
+            <p class="portfolio-subtitle">Découvrez mes réalisations en analyse de données et visualisation</p>
+        </div>
+        
+        <div class="projects-grid">
+            <!-- Projet 1 -->
+            <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="project-image">
+                    <img src="https://images.unsplash.com/photo-1522083165195-3424ed129620?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Airbnb New York">
+                </div>
+                <div class="project-content">
+                    <h3 class="project-name">Analyse <span>Airbnb NYC</span></h3>
+                    <p class="project-desc">Tableau de bord interactif analysant les locations Airbnb à New York avec visualisations des prix, disponibilités et tendances par quartier.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Tableau</span>
+                        <span class="tech-tag">Data Cleaning</span>
+                        <span class="tech-tag">Analyse spatiale</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://public.tableau.com/app/profile/issla.kh/viz/AirBnb_NYC_17407610913740/TableaudebordDonneAirBnbNYC" class="project-link link-demo"><i class="fas fa-external-link-alt"></i> Voir le projet</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Projet 2 -->
+            <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="project-image">
+                    <img src="marketing-mix-4p.webp" alt="Analyse Marketing">
+                </div>
+                <div class="project-content">
+                    <h3 class="project-name">Analyse <span>Marketing Mix</span></h3>
+                    <p class="project-desc">Évaluation de l'efficacité des canaux marketing et optimisation du budget alloué à chaque canal pour maximiser le ROI.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Pandas</span>
+                        <span class="tech-tag">Matplotlib</span>
+                        <span class="tech-tag">Analyse statistique</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://bank-app-dcfzcgvrat9vliw6dvejdi.streamlit.app/" class="project-link link-demo"><i class="fas fa-external-link-alt"></i> Voir le projet</a>
+                        <a href="https://github.com/IssKhatir/Bank-App" class="project-link link-code"><i class="fab fa-github"></i> Code</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Projet 3 -->
+            <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="project-image">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Dashboard Financier">
+                </div>
+                <div class="project-content">
+                    <h3 class="project-name">Dashboard <span>Financier</span></h3>
+                    <p class="project-desc">Visualisation interactive des performances financières d'une entreprise avec indicateurs clés et analyses temporelles.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Power BI</span>
+                        <span class="tech-tag">DAX</span>
+                        <span class="tech-tag">SQL</span>
+                        <span class="tech-tag">ETL</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link link-demo"><i class="fas fa-external-link-alt"></i> Voir le projet</a>
+                        <a href="#" class="project-link link-code"><i class="fab fa-github"></i> Code</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Projet 4 -->
+            <div class="project-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="project-image">
+                    <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Prédiction Ventes">
+                </div>
+                <div class="project-content">
+                    <h3 class="project-name">Prédiction des <span>Ventes</span></h3>
+                    <p class="project-desc">Modèle de machine learning pour prédire les ventes futures basé sur les données historiques et facteurs externes.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Scikit-learn</span>
+                        <span class="tech-tag">Time Series</span>
+                        <span class="tech-tag">Feature Engineering</span>
+                        <span class="tech-tag">XGBoost</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link link-demo"><i class="fas fa-external-link-alt"></i> Voir le projet</a>
+                        <a href="#" class="project-link link-code"><i class="fab fa-github"></i> Code</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Projet 5 -->
+            <div class="project-card" data-aos="fade-up" data-aos-delay="500">
+                <div class="project-image">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Analyse Clients">
+                </div>
+                <div class="project-content">
+                    <h3 class="project-name">Segmentation des <span>Clients</span></h3>
+                    <p class="project-desc">Analyse RFM et clustering pour segmenter la clientèle et personnaliser les stratégies marketing.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">K-means</span>
+                        <span class="tech-tag">PCA</span>
+                        <span class="tech-tag">Tableau</span>
+                        <span class="tech-tag">Analyse RFM</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link link-demo"><i class="fas fa-external-link-alt"></i> Voir le projet</a>
+                        <a href="#" class="project-link link-code"><i class="fab fa-github"></i> Code</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Projet 6 -->
+            <div class="project-card" data-aos="fade-up" data-aos-delay="600">
+                <div class="project-image">
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="ETL Data Pipeline">
+                </div>
+                <div class="project-content">
+                    <h3 class="project-name">Pipeline <span>ETL</span></h3>
+                    <p class="project-desc">Automatisation du processus d'extraction, transformation et chargement des données avec monitoring des performances.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Apache Airflow</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                        <span class="tech-tag">Docker</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link link-demo"><i class="fas fa-external-link-alt"></i> Voir le projet</a>
+                        <a href="#" class="project-link link-code"><i class="fab fa-github"></i> Code</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Data Insights. All Rights Reserved.</p>
+        <div class="footer-social">
+            <a href="https://github.com/IssKhatir"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/iss-khatir/"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init({offset:0});
+    </script>
+    <script>
+        function hamburg(){
+            const navbar = document.querySelector(".dropdown")
+            navbar.style.transform = "translateY(0px)"
+        }
+        function cancel(){
+            const navbar = document.querySelector(".dropdown")
+            navbar.style.transform = "translateY(-500px)"
+        }
+    </script>
+</body>
+</html>

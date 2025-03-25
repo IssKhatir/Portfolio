@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <title>Isslam - Services</title>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+        *{
+            padding: 0;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            box-sizing: border-box;
+        }
+        html{
+            overflow-x: hidden;
+        }
+        body{
+            width: 100%;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: linear-gradient(to right, rgb(255,255,255), rgb(254,215,173));
+        }
+        nav{
+            width: 100%;
+            height: 10vh;
+            position: sticky;
+            top: 0;
+            background: linear-gradient(to right, rgb(255,255,255), rgb(254,215,173));
+            z-index: 1000;
+        }
+        .nav-container{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .logo{
+            color: black;
+            font-size: 2rem;
+            font-weight: bolder;
+        }
+        .logo span{
+            color: rgb(109,67, 0);
+            text-shadow: 0 0 10px rgb(109,67, 0);
+        }
+        .hamburg, .cancel{
+            cursor: pointer;
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            color: black;
+            font-size: 2rem;
+            display: none;
+        }
+        .nav-container .links {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+        }
+        .nav-container .links a{
+            position: relative;
+            font-size: 1.2rem;
+            color: black;
+            text-decoration: none;
+            font-weight: 500;
+            transform: 0.3s linear;
+        }
+        .nav-container .links a::before{
+            position: absolute;
+            content: "";
+            bottom: -3px;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background-color: rgb(109,67, 0);
+            transition: 0.2s linear;
+        }
+        .nav-container .links a:hover::before{
+            width: 100%;
+        }
+        .nav-container .contact-btn{
+            background-color: transparent;
+            padding: 5px 20px;
+            border-radius: 20px;
+            border: 2px solid rgb(109,67, 0);
+            transition: 0.2s linear;
+        }
+        .nav-container .contact-btn a{
+            color: white;
+            transition: 0.3s linear;
+        }
+        .nav-container .contact-btn:hover, .nav-container .contact-btn:hover a{
+            background-color: rgb(109,67, 0);
+            color: white;
+        }
+        .nav-container .links a:hover{
+            color: rgb(109,67, 0);
+        }
+        .dropdown{
+            z-index: 100;
+            position: absolute;
+            top: 0;
+            transform: translateY(-500px);
+            width: 100%;
+            height: auto;
+            backdrop-filter: brightness(40%) blur(3px);
+            box-shadow: 0 0 20px black;
+            transition: 0.2s linear;
+        }
+        .dropdown .links a{
+            color: white;
+            display: flex;
+            text-decoration: none;
+            justify-content: center;
+            padding: 15px 0;
+            align-items: center;
+            transition: 0.2s linear;
+        }
+        .dropdown .links a:hover{
+            background-color: rgb(109,67, 0);
+        }
+
+        /* Services Section */
+        .services-section {
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: black;
+            position: relative;
+        }
+        
+        .section-title span {
+            color: rgb(109,67, 0);
+            text-shadow: 0 0 10px rgb(109,67, 0);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: rgb(109,67, 0);
+        }
+        
+        .services-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 0 5%;
+        }
+        
+        .service-card {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            width: 350px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(109, 67, 0, 0.2);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(109, 67, 0, 0.2);
+            border: 1px solid rgb(109,67, 0);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            color: rgb(109,67, 0);
+            margin-bottom: 20px;
+        }
+        
+        .service-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: rgb(109,67, 0);
+        }
+        
+        .service-description {
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .service-btn {
+            background-color: rgb(109,67, 0);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .service-btn:hover {
+            background-color: transparent;
+            color: rgb(109,67, 0);
+            border: 2px solid rgb(109,67, 0);
+            box-shadow: 0 0 15px rgba(109, 67, 0, 0.3);
+        }
+        
+        footer {
+            background-color: rgba(109, 67, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 80px;
+        }
+        
+        .footer-social {
+            margin: 15px 0;
+        }
+        
+        .footer-social a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-social a:hover {
+            color: #ffd700;
+        }
+        
+        @media (max-width: 884px) {
+            nav .logo{
+                position: absolute;
+                top: 16px;
+                left: 15px;
+                font-size: 1.5rem;
+            }
+            .nav-container .links{
+                display: none;
+            }
+            .hamburg,.cancel{
+                display: block;
+            }
+            .cancel{
+                color: white;
+            }
+            .services-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .service-card {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo" data-aos="zoom-in" data-aos-duration="1000">
+                <span>Data Insights</span>
+            </div>
+            <div class="links">
+                <div class="link" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200"><a href="file:///Users/isslamkhatir/Desktop/Website%20PORTFOLIO/index.html">About</a></div>
+                <div class="link" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400"><a href="file:///Users/isslamkhatir/Desktop/Website%20PORTFOLIO/services.html">Services</a></div>
+                <div class="link" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500"><a href="file:///Users/isslamkhatir/Desktop/Website%20PORTFOLIO/Portfolio.html">Portfolio</a></div>
+                <div class="link contact-btn" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600"><a href="contact.html">Contact Us</a></div>
+            </div>
+            <i class="fa-solid fa-bars hamburg" onclick="hamburg()"></i>
+        </div>
+        <div class="dropdown">
+            <div class="links">
+                <a href="file:///Users/isslamkhatir/Desktop/Website%20PORTFOLIO/index.html">About</a>
+                <a href="file:///Users/isslamkhatir/Desktop/Website%20PORTFOLIO/services.html">Services</a>
+                <a href="file:///Users/isslamkhatir/Desktop/Website%20PORTFOLIO/Portfolio.html">Portfolio</a>
+                <a href="contact.html">Contact Us</a>
+                <i class="fa-solid fa-xmark cancel" onclick="cancel()"></i>
+            </div>
+        </div>
+    </nav>
+
+    <section class="services-section">
+        <h1 class="section-title" data-aos="fade-down">Data <span>Services</span></h1>
+        
+        <div class="services-container">
+            <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="service-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                <h3 class="service-title">Data Collecting</h3>
+                <p class="service-description">
+                    With my experience in data collection, I have developed expertise in identifying and extracting data from various internal and external sources, such as databases, APIs, and Excel files.
+                </p>
+                <ul class="tech-list">
+                    <li>Automated data collection processes</li>
+                    <li>Python and SQL expertise</li>
+                    <li>Optimized time and accuracy</li>
+                    <li>Multiple source integration</li>
+                </ul>
+            </div>
+            
+            <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="service-icon">
+                    <i class="fas fa-broom"></i>
+                </div>
+                <h3 class="service-title">Data Cleansing</h3>
+                <p class="service-description">
+                    My approach to data cleaning involves identifying and handling missing values, correcting inconsistencies, and removing duplicates to ensure that the dataset is both complete and accurate.
+                </p>
+                <ul class="tech-list">
+                    <li>Missing value imputation</li>
+                    <li>Data transformation</li>
+                    <li>Outlier detection</li>
+                    <li>Validation checks</li>
+                    <li>Normalization techniques</li>
+                </ul>
+            </div>
+            
+            <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="service-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <h3 class="service-title">Data Exploration</h3>
+                <p class="service-description">
+                    Data exploration is a crucial phase where I dive into the dataset to understand its structure, patterns, and relationships using visualization tools.
+                </p>
+                <ul class="tech-list">
+                    <li>Matplotlib & Seaborn</li>
+                    <li>Power BI & Tableau</li>
+                    <li>Trend identification</li>
+                    <li>Pattern recognition</li>
+                    <li>Looker integration</li>
+                </ul>
+            </div>
+            
+            <div class="service-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="service-icon">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <h3 class="service-title">Statistical Analysis</h3>
+                <p class="service-description">
+                    I apply various statistical methods to extract meaningful insights from data and assess its underlying patterns.
+                </p>
+                <ul class="tech-list">
+                    <li>Hypothesis testing</li>
+                    <li>Correlation analysis</li>
+                    <li>Regression models</li>
+                    <li>Statistical significance</li>
+                    <li>Variable relationships</li>
+                </ul>
+            </div>
+            
+            <div class="service-card" data-aos="fade-up" data-aos-delay="500">
+                <div class="service-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <h3 class="service-title">Reporting</h3>
+                <p class="service-description">
+                    I have developed and delivered reports using data visualization tools, focusing on key performance indicators (KPIs) and trends.
+                </p>
+                <ul class="tech-list">
+                    <li>Customized stakeholder reports</li>
+                    <li>KPI-focused analysis</li>
+                    <li>Technical & non-technical outputs</li>
+                    <li>Decision-ready insights</li>
+                    <li>Interactive dashboards</li>
+                </ul>
+            </div>
+            
+            <div class="service-card" data-aos="fade-up" data-aos-delay="600">
+                <div class="service-icon">
+                    <i class="fas fa-chess"></i>
+                </div>
+                <h3 class="service-title">Data-Driven Decision</h3>
+                <p class="service-description">
+                    I leverage insights gained from data analysis to support key decisions and provide actionable recommendations.
+                </p>
+                <ul class="tech-list">
+                    <li>Business objective alignment</li>
+                    <li>Actionable recommendations</li>
+                    <li>Performance optimization</li>
+                    <li>Risk mitigation</li>
+                    <li>Opportunity identification</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Data Insights. All Rights Reserved.</p>
+        <div class="footer-social">
+            <a href="https://github.com/IssKhatir"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/iss-khatir/"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init({offset:0});
+    </script>
+    <script>
+        function hamburg(){
+            const navbar = document.querySelector(".dropdown")
+            navbar.style.transform = "translateY(0px)"
+        }
+        function cancel(){
+            const navbar = document.querySelector(".dropdown")
+            navbar.style.transform = "translateY(-500px)"
+        }
+    </script>
+</body>
+</html>
